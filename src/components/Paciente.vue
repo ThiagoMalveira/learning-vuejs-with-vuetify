@@ -1,5 +1,4 @@
 <template>
-
   <v-card>
     <v-card-title>
       {{ paciente.name }}
@@ -15,16 +14,10 @@
       <v-btn @click="$emit('edit',paciente)">Edit</v-btn>
     </v-card-actions>
   </v-card>
-
 </template>
 
 <script>
 export default {
   props: ['paciente'], 
-  data: () => ({
-
-  }),
-  methods: {
-  }
 };
 </script>

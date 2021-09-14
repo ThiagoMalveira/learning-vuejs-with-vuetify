@@ -26,10 +26,9 @@
           <v-col cols="11" sm="5">
             <v-menu transition="scale-transition" offset-y max-width="290px" min-width="290px" :close-on-content-click="false" :nudge-right="40">
               <template v-slot:activator="{ on, attrs }">
-                <v-text-field v-model="paciente.date" label="Date" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" />
+                <v-text-field v-model="paciente.date" label="Data de entrada" prepend-icon="mdi-calendar" clearable readonly v-bind="attrs" v-on="on" />
               </template>
-              <v-date-picker v-model="paciente.date" no-title scrollable>
-              </v-date-picker>
+              <v-date-picker v-model="paciente.date" no-title scrollable/>
             </v-menu>
           </v-col>
         </v-row>
@@ -37,7 +36,7 @@
           <v-col cols="11" sm="5">
             <v-menu transition="scale-transition" offset-y max-width="290px" min-width="290px" :close-on-content-click="false" :nudge-right="40">
               <template v-slot:activator="{ on, attrs }">
-                <v-text-field v-model="paciente.time" label="Horário do checkup" prepend-icon="mdi-clock-time-four-outline" readonly v-bind="attrs" v-on="on"/>
+                <v-text-field v-model="paciente.time" label="Horário do checkup" prepend-icon="mdi-clock-time-four-outline" clearable readonly v-bind="attrs" v-on="on"/>
               </template>
                 <v-time-picker v-model="paciente.time" format="24hr" no-title scrollable />
             </v-menu>
@@ -46,6 +45,11 @@
         <v-row>
           <v-col>
             <v-btn color="green" @click="save">Salvar Paciente</v-btn>
+          </v-col>
+          <v-col>
+            <v-btn color="accent" @click="backHomePage">
+              Voltar
+            </v-btn>
           </v-col>
         </v-row>
       </v-container>
@@ -78,7 +82,10 @@ export default {
     async save() {
       await this.$store.dispatch('savePaciente', this.paciente);
       this.$router.push('/');
-    }
+    },
+    backHomePage() {
+      this.$router.push({ name: 'home' });
+    },
   }
 };
 </script>

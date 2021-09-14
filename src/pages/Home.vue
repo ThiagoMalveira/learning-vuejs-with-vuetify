@@ -1,5 +1,4 @@
 <template>
-
   <v-container>
     <v-row>
       <v-col cols="4" v-for="(paciente,idx) in pacientes" :key="idx">
@@ -10,9 +9,14 @@
       <v-col>
         <v-btn @click="addPaciente">Adicionar paciente</v-btn>
       </v-col>
+      <v-spacer></v-spacer>
+      <v-spacer></v-spacer>
+      <v-spacer></v-spacer>
+      <v-col>
+        <v-btn @click="reportPaciente">Relatório de pacientes</v-btn>
+      </v-col>
     </v-row>
   </v-container>
-
 </template>
 
 <script>
@@ -33,6 +37,9 @@ export default {
   methods: {
     addPaciente() {
       this.$router.push({ name: 'edit' });
+    },
+    reportPaciente() {
+      this.$router.push({ name: 'report' });
     },
     async deletePaciente(paciente) {
       await this.$store.dispatch('deletePaciente', paciente);
