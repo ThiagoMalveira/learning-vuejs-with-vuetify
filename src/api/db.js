@@ -1,17 +1,18 @@
-const DB_NAME = 'pacientedb';
-const DB_VERSION = 2;
+const DB_NAME = 'alunodb';
+const DB_VERSION = 1;
 let DB;
 
 export default {
 
-	async getDb() {
+	async getDB() {
 		return new Promise((resolve, reject) => {
 
-			if(DB) { return resolve(DB); }
+			if(DB)return resolve(DB); 
+			
 			let request = window.indexedDB.open(DB_NAME, DB_VERSION);
 			
 			request.onerror = e => {
-				console.log('Error opening db', e);
+				console.log('Erro ao criar IndexedDB', e)
 				reject('Error');
 			};
 	
@@ -22,43 +23,43 @@ export default {
 			
 			request.onupgradeneeded = e => {
 				let db = e.target.result;
-				db.createObjectStore("pacientes", { autoIncrement: true, keyPath:'id' });
+				db.createObjectStore("alunos", { autoIncrement: true, keyPath:'id' });
 			};
 		});
 	},
-	async deletePaciente(paciente) {
+	async deleteAluno(aluno) {
 
-		let db = await this.getDb();
+		let db = await this.getDB();
 
 		return new Promise(resolve => {
 
-			let trans = db.transaction(['pacientes'],'readwrite');
+			let trans = db.transaction(['alunos'],'readwrite');
 			trans.oncomplete = () => {
 				resolve();
 			};
 
-			let store = trans.objectStore('pacientes');
-			store.delete(paciente.id);
+			let store = trans.objectStore('alunos');
+			store.delete(aluno.id);
 		});	
 	},
-	async getPacientes() {
+	async getAlunos() {
 
-		let db = await this.getDb();
+		let db = await this.getDB();
 
 		return new Promise(resolve => {
 
-			let trans = db.transaction(['pacientes'],'readonly');
+			let trans = db.transaction(['alunos'],'readonly');
 			trans.oncomplete = () => {
-				resolve(pacientes);
+				resolve(alunos);
 			};
 			
-			let store = trans.objectStore('pacientes');
-			let pacientes = [];
+			let store = trans.objectStore('alunos');
+			let alunos = [];
 			
 			store.openCursor().onsuccess = e => {
 				let cursor = e.target.result;
 				if (cursor) {
-					pacientes.push(cursor.value)
+					alunos.push(cursor.value)
 					cursor.continue();
 				}
 			};
@@ -66,22 +67,22 @@ export default {
 		});
 	},
 
-	async savePaciente(paciente) {
+	async saveAlunos(aluno) {
 
-		let db = await this.getDb();
+		let db = await this.getDB();
 
 		return new Promise(resolve => {
 
-			let trans = db.transaction(['pacientes'],'readwrite');
+			let trans = db.transaction(['alunos'],'readwrite');
 			trans.oncomplete = () => {
 				resolve();
 			};
 
-			let store = trans.objectStore('pacientes');
-			store.put(paciente);
+			let store = trans.objectStore('alunos');
+			console.log(aluno);
+			store.put(aluno);
 
 		});
-	
-	}
-
+		
+	},
 }

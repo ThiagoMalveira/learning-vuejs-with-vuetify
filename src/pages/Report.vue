@@ -12,8 +12,9 @@
         <v-col>
         <v-data-table
             :headers="headers"
-            :items="pacientes"
+            :items="alunos"
             :search="search"
+            append-icon="mdi-arrow-up"
         >
         </v-data-table>
         </v-col>
@@ -32,24 +33,22 @@ export default {
         return {
             search: '',
             headers: [
-                { text: 'Nome', value: 'name'},
-                { text: 'Idade', value: 'age'},
-                { text: 'Quarto', value: 'bedroom'},
-                { text: 'Andar', value: 'floor'},
-                { text: 'Estado atual', value: 'status'},
-                { text: 'Data de entrada', value: 'date'},
-                { text: 'Data do último checkup', value: 'time'},
+                { text: 'Nome', value: 'nome'},
+                { text: 'Matricula', value: 'matricula'},
+                { text: 'Curso', value: 'curso'},
+                { text: 'data inicio', value: 'data_inicio'},
+                { text: 'data termino', value: 'data_termino'}
             ],
         }
     },
     computed: {
-        pacientes() {
-            return this.$store.state.pacientes;
+        alunos() {
+            return this.$store.state.alunos;
         },
     },  
     methods: {
         backHomePage() {
-            this.$router.push({ name: 'home' });
+            this.$router.push({ name: 'Homepage' });
         },
     }
 }

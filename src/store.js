@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import http from '@/http'
 
 import db from '@/api/db';
 
@@ -7,24 +8,51 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    pacientes:[]
+    token: null,
+    alunos:{}
   },
   mutations: {
-
+    DEFINIR_ALUNO_LOGADO(state, { token, aluno }) {
+      state.token = token
+      state.alunos = aluno
+  },
+    DESLOGAR_ALUNO(state) {
+      state.token = null
+      state.alunos = {}
+    }
+  },
+  getters: {
+    alunoEstaLogado: state => Boolean(state.token)
   },
   actions: {
-    async deletePaciente(context, paciente) {
-      await db.deletePaciente(paciente); 
+    async deleteAluno(context, aluno) {
+      await db.deleteAluno(aluno); 
     },
-    async getPacientes(context) {
-      context.state.pacientes = [];
-      let pacientes = await db.getPacientes();
-      pacientes.forEach(c => {
-        context.state.pacientes.push(c);
+    async getAlunos(context) {
+      context.state.alunos = [];
+      let alunos = await db.getAlunos();
+      alunos.forEach(c => {
+        context.state.alunos.push(c);
       });
     },
-    async savePaciente(context, paciente) {
-      await db.savePaciente(paciente);
-    }
+    async saveAlunos(context, aluno) {
+      await db.saveAlunos(aluno);
+    },
+    efetuarLogin({ commit }, usuario) {
+      return new Promise((resolve, reject) => {
+          http.post('auth/login', usuario)
+              .then(response => {
+                  commit('DEFINIR_ALUNO_LOGADO', {
+                      token: response.data.access_token,
+                      usuario: response.data.user
+                  })
+                  resolve(response.data)
+              })
+              .catch(err => {
+                  console.log(err)
+                  reject(err)
+              })
+      })
+  }
   }
 })
