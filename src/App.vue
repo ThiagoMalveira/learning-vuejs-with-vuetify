@@ -1,19 +1,22 @@
 <template>
   <v-app>
-    <Header/>
-    <v-main>
+    <v-app-bar app>
+      <v-toolbar-title class="headline text-uppercase">
+        <span>pacientes</span>
+        <span class="font-weight-light">DB</span>
+      </v-toolbar-title>
+    </v-app-bar>
+
+    <v-content>
       <router-view />
-    </v-main>
+    </v-content>
   </v-app>
 </template>
 
 <script>
-import Header from './components/Header.vue'
+
 export default {
   name: 'App',
-  components: {
-    Header
-  },
   data: () => ({
     //
   }),
