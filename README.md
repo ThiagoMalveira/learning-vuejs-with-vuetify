@@ -1,45 +1,24 @@
-# VueTest
+# hello-world
 
-## Clonando o Projeto
+## Project setup
 ```
-Após dar um git clone no projeto
-Utilize cd VueTest para entrar na pasta do projeto
-```
-
-### Instalando o projeto
-
-``` 
-dê um npm install na pasta raiz do projeto
-após isso entre na pasta src/api/fake-rest-api utiliznado o comando
-cd src/api/fake-rest-api e utilize o comando npm install
+yarn install
 ```
 
-### Inicializando o projeto
-
+### Compiles and hot-reloads for development
 ```
-Ainda dentro da pasta src/api/fake-rest-api utilize o comando npm run start-auth para inicializar a api de login
-
-após isso abra uma segunda janela do terminal e vá até a pasta raiz do projeto VueTest e utilize o comando npm run serve e clique segurando a tecla ctrl no link gerado no terminal
+yarn serve
 ```
 
-### Utilizando o projeto
-
+### Compiles and minifies for production
 ```
-Crie um login e senha utilizando a aplicação e entre utilizando a pagina da Home após isso é só adicionar os alunos e quais seus cursos
-```
-
-### O que foi utilizado no projeto
-```
-VueJs Versão 2.6.5
-Vue-Router Versão 3.0.3
-VueX versão 3.0.1
-Axios versão 0.22.0
-Vuetify versão 2.1.0
+yarn build
 ```
 
-### Porque foram utilizados
+### Lints and fixes files
 ```
-Vuetify -> por conta da facilidade em criar componentes e paginas com o recurso
+yarn lint
+```
 
-Os demais foram utilizados apenas porque o teste pedia.
-```
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
